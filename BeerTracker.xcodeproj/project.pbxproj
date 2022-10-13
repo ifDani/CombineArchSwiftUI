@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		65C73BFC28F5C4EE00FC6293 /* ModelsTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73BFB28F5C4EE00FC6293 /* ModelsTesting.swift */; };
 		65C73BFE28F5D12800FC6293 /* ViewModelTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73BFD28F5D12800FC6293 /* ViewModelTesting.swift */; };
+		65C73C0028F80AD200FC6293 /* BeerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73BFF28F80AD200FC6293 /* BeerRepository.swift */; };
 		65CB034728F5691700E72E20 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB034628F5691700E72E20 /* Chip.swift */; };
 		65CB034928F56BCC00E72E20 /* ChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB034828F56BCC00E72E20 /* ChipModel.swift */; };
 		65CB034C28F58B6D00E72E20 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB034B28F58B6C00E72E20 /* DetailView.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		65C73BFB28F5C4EE00FC6293 /* ModelsTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTesting.swift; sourceTree = "<group>"; };
 		65C73BFD28F5D12800FC6293 /* ViewModelTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTesting.swift; sourceTree = "<group>"; };
+		65C73BFF28F80AD200FC6293 /* BeerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerRepository.swift; sourceTree = "<group>"; };
 		65CB034628F5691700E72E20 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
 		65CB034828F56BCC00E72E20 /* ChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipModel.swift; sourceTree = "<group>"; };
 		65CB034B28F58B6C00E72E20 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				65CD69E228F4915300BD8998 /* BaseNetwork.swift */,
+				65C73BFF28F80AD200FC6293 /* BeerRepository.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65C73C0028F80AD200FC6293 /* BeerRepository.swift in Sources */,
 				65CD69AB28F4826500BD8998 /* ContentView.swift in Sources */,
 				65CB034928F56BCC00E72E20 /* ChipModel.swift in Sources */,
 				65CB034728F5691700E72E20 /* Chip.swift in Sources */,

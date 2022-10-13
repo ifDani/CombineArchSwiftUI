@@ -18,14 +18,44 @@ final class HomeViewModel: ObservableObject {
     @Published var chips: [ChipModel] = [ChipModel(isSelected: true, title: "All", queryItem: nil),ChipModel(isSelected: false, title: "+ABV", queryItem: URLQueryItem(name: "abv_gt", value: "16")), ChipModel(isSelected: false, title: "Bitter", queryItem: URLQueryItem(name: "ibu_gt", value: "100"))]
     @Published var queryItems: [URLQueryItem] = []
     @Published var beers: Beers = []
+    @Published var isPaging = false
+    
     var subscription = Set<AnyCancellable>()
-
+    //Repository
+    private let repository = BeerRepository()
     init() {
+        addBeersSubscriber()
+        
         //Search by food parameter logic and prevent multiple requests
         addFoodObserver()
         
         //Listen changes of chips array (detect selections)
         addFilterObserver()
+    }
+    
+    func addBeersSubscriber() {
+        repository.$beers
+            .sink { completion in
+                switch completion{
+                case .failure:
+                    self.status = .error
+                case .finished:
+                    break
+                }
+            } receiveValue: { beers in
+                self.status = .success
+                
+                if !self.food.isEmpty {
+                    if self.isPaging {
+                        self.beers.append(contentsOf: beers)
+                    } else {
+                        self.beers = beers
+                    }
+                } else {
+                    self.beers.append(contentsOf: beers)
+                }
+            }
+            .store(in: &subscription)
     }
     
     func addFoodObserver() {
@@ -63,50 +93,16 @@ final class HomeViewModel: ObservableObject {
                 }
             }.store(in: &subscription)
     }
+    
     func getAllBeers(isPaging: Bool = false) {
         
-        let request: URLRequest = BaseNetwork().getBeers(page: currentPage, food: food, queryItems: self.queryItems)
+        self.isPaging = isPaging
         
-        //If is pagging we dont want to change our view to display a top loader
         if !isPaging {
             self.status = .sending
         }
         
-        URLSession.shared
-            .dataTaskPublisher(for: request)
-            .tryMap{
-                guard let response = $0.response as? HTTPURLResponse,
-                      response.statusCode == 200 else {
-                    
-                    throw URLError(.badServerResponse)
-                }
-                return $0.data
-            }
-            .decode(type: Beers.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
-            .sink { completion in
-                switch completion{
-                case .failure(let errorString):
-                    print(errorString)
-                    self.status = .error
-                case .finished:
-                    print("success",request.url)
-                }
-            } receiveValue: { response in
-                
-                self.status = .success
-                if !self.food.isEmpty {
-                    
-                    if isPaging {
-                        self.beers.append(contentsOf: response)
-                    } else {
-                        self.beers = response
-                    }
-                } else {
-                    self.beers.append(contentsOf: response)
-                }
-                
-            }.store(in: &subscription)
+        repository.getBeers(page: currentPage, food: food, queryItems: self.queryItems)
     }
     
     func resetPagesAndCall() {
