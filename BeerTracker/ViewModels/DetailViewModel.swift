@@ -8,45 +8,41 @@
 import Foundation
 import Combine
 final class DetailViewModel: ObservableObject {
-    @Published var idBeer: Int = 1 
+    
     @Published var status: StatusNetwork = .none
-    @Published var beer: Beer = Beer(id: 0, name: "", tagline: "", firstBrewed: "", beerDescription: "")
+    
+    @Published var beer: Beer
+    
+    private let bRepository: BeerDetailRepository
+    
     var subscription = Set<AnyCancellable>()
     
+    init(beer: Beer) {
+        self.beer = beer
+        self.bRepository = BeerDetailRepository(beer: beer)
+        getBeer()
+        addSubscribers()
+    }
     
-    func getBeer() {
-        let request: URLRequest = BaseNetwork().getBeer(idBeer)
-        
-        
-        self.status = .sending
-        
-        
-        URLSession.shared
-            .dataTaskPublisher(for: request)
-            .tryMap{
-                guard let response = $0.response as? HTTPURLResponse,
-                      response.statusCode == 200 else {
-                    
-                    throw URLError(.badServerResponse)
-                }
-                return $0.data
-            }
-            .decode(type: Beers.self, decoder: JSONDecoder())
-            .receive(on: DispatchQueue.main)
+    func addSubscribers() {
+        bRepository.$beer
             .sink { completion in
                 switch completion{
                 case .failure(let errorString):
                     print(errorString)
                     self.status = .error
                 case .finished:
-                    print("success",request.url!)
+                    break
                 }
-            } receiveValue: { response in
+            } receiveValue: { beer in
                 self.status = .success
-                if let first = response.first {
-                    self.beer = first
-                }
+                self.beer = beer
             }.store(in: &subscription)
+    }
+    
+    func getBeer() {
+        self.status = .sending
+        bRepository.getBeer()
     }
     
 }

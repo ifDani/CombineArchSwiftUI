@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct DetailView: View {
-    @State var idBeer: Int
-    @StateObject var detailViewModel : DetailViewModel = DetailViewModel()
+    
+    @StateObject var detailViewModel : DetailViewModel
 
-    init(idBeer: Int) {
-        self.idBeer = idBeer
+    init(beer: Beer) {
+        _detailViewModel = StateObject(wrappedValue: DetailViewModel(beer: beer))
     }
     
     var body: some View {
@@ -69,15 +69,12 @@ struct DetailView: View {
                     }.fixedSize(horizontal: false, vertical: true).padding(.top)
                 }
             }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        }.onAppear{
-            self.detailViewModel.idBeer = idBeer
-            self.detailViewModel.getBeer()
         }.background(Color.white)
     }
 }
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
-        DetailView(idBeer: 1)
+        DetailView(beer: Beer(id: 1, name: "name", tagline: "tagline", firstBrewed: "brewwde", beerDescription: "desc"))
     }
 }

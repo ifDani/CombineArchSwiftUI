@@ -28,7 +28,7 @@ enum endpoints : String {
 //protocol
 protocol BaseNetworkProtocol {
     func getBeers(page: Int, food: String?, queryItems: [URLQueryItem]) -> URLRequest
-    func getBeer(_ id:Int) -> URLRequest
+    func getBeer(_ beer: Beer) -> URLRequest
     func getRandomBeer() -> URLRequest
 
 }
@@ -56,8 +56,8 @@ struct BaseNetwork : BaseNetworkProtocol {
     }
     
     
-    func getBeer(_ id: Int) -> URLRequest {
-        let url : String = "\(API_URL)\(endpoints.beers)/\(id)"
+    func getBeer(_ beer: Beer) -> URLRequest {
+        let url : String = "\(API_URL)\(endpoints.beers)/\(beer.id)"
         
         print(url,endpoints.beer)
         var request : URLRequest = URLRequest(url: URL(string: url)!)

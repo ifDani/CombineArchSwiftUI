@@ -38,7 +38,7 @@ struct HomeView: View {
                                     LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                                         
                                         ForEach(Array(zip(beers.indices, beers)), id: \.0) { index, beer in
-                                            NavigationLink(destination: DetailView(idBeer: beers[index].id).navigationBarHidden(true)) {
+                                            NavigationLink(destination: DetailView(beer: beer).navigationBarHidden(true)) {
                                                 BeerGridCell(beer: beer)
                                             }.onAppear{
                                                 let max = ((14 * (homeViewModel.currentPage)) - 4)

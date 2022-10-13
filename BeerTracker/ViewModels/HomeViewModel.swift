@@ -21,8 +21,10 @@ final class HomeViewModel: ObservableObject {
     @Published var isPaging = false
     
     var subscription = Set<AnyCancellable>()
+    
     //Repository
     private let repository = BeerRepository()
+    
     init() {
         addBeersSubscriber()
         
@@ -44,7 +46,6 @@ final class HomeViewModel: ObservableObject {
                 }
             } receiveValue: { beers in
                 self.status = .success
-                
                 if !self.food.isEmpty {
                     if self.isPaging {
                         self.beers.append(contentsOf: beers)
