@@ -15,7 +15,7 @@ final class HomeViewModel: ObservableObject {
     //This is to avoid unnecesary calls if we already have called that page
     @Published var lastPage: Int = 0
     //Default chip filters
-    @Published var chips: [ChipModel] = [ChipModel(isSelected: true, title: "All", queryItem: nil),ChipModel(isSelected: false, title: "+ABV", queryItem: URLQueryItem(name: "abv_gt", value: "16")), ChipModel(isSelected: false, title: "Bitter", queryItem: URLQueryItem(name: "ibu_gt", value: "100"))]
+    @Published var chips: [ChipModel] = CHIPS
     @Published var queryItems: [URLQueryItem] = []
     @Published var beers: Beers = []
     @Published var isPaging = false

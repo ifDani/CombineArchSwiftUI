@@ -10,7 +10,7 @@
 		65C73BFC28F5C4EE00FC6293 /* ModelsTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73BFB28F5C4EE00FC6293 /* ModelsTesting.swift */; };
 		65C73BFE28F5D12800FC6293 /* ViewModelTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73BFD28F5D12800FC6293 /* ViewModelTesting.swift */; };
 		65C73C0028F80AD200FC6293 /* BeerRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73BFF28F80AD200FC6293 /* BeerRepository.swift */; };
-		65C73C0228F81E3E00FC6293 /* BeerDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73C0128F81E3E00FC6293 /* BeerDetailRepository.swift */; };
+		65C73C0428F88D8F00FC6293 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C73C0328F88D8F00FC6293 /* Constants.swift */; };
 		65CB034728F5691700E72E20 /* Chip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB034628F5691700E72E20 /* Chip.swift */; };
 		65CB034928F56BCC00E72E20 /* ChipModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB034828F56BCC00E72E20 /* ChipModel.swift */; };
 		65CB034C28F58B6D00E72E20 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65CB034B28F58B6C00E72E20 /* DetailView.swift */; };
@@ -56,7 +56,7 @@
 		65C73BFB28F5C4EE00FC6293 /* ModelsTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelsTesting.swift; sourceTree = "<group>"; };
 		65C73BFD28F5D12800FC6293 /* ViewModelTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTesting.swift; sourceTree = "<group>"; };
 		65C73BFF28F80AD200FC6293 /* BeerRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerRepository.swift; sourceTree = "<group>"; };
-		65C73C0128F81E3E00FC6293 /* BeerDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeerDetailRepository.swift; sourceTree = "<group>"; };
+		65C73C0328F88D8F00FC6293 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		65CB034628F5691700E72E20 /* Chip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chip.swift; sourceTree = "<group>"; };
 		65CB034828F56BCC00E72E20 /* ChipModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipModel.swift; sourceTree = "<group>"; };
 		65CB034B28F58B6C00E72E20 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
@@ -215,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				65CD69EA28F4AF7D00BD8998 /* Extension */,
+				65C73C0328F88D8F00FC6293 /* Constants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -224,7 +225,6 @@
 			children = (
 				65CD69E228F4915300BD8998 /* BaseNetwork.swift */,
 				65C73BFF28F80AD200FC6293 /* BeerRepository.swift */,
-				65C73C0128F81E3E00FC6293 /* BeerDetailRepository.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -419,8 +419,8 @@
 				65CD69E128F4891600BD8998 /* HomeViewModel.swift in Sources */,
 				65DF80EB28F5A59300207463 /* View.swift in Sources */,
 				65CD69DC28F4867200BD8998 /* BeerModel.swift in Sources */,
-				65C73C0228F81E3E00FC6293 /* BeerDetailRepository.swift in Sources */,
 				65DF80F028F5A95D00207463 /* DetailViewModel.swift in Sources */,
+				65C73C0428F88D8F00FC6293 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

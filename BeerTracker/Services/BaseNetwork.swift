@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 let API_URL = "https://api.punkapi.com/v2/"
 
 struct HTTPMethods{
@@ -27,6 +29,7 @@ enum endpoints : String {
 
 //protocol
 protocol BaseNetworkProtocol {
+    
     func getBeers(page: Int, food: String?, queryItems: [URLQueryItem]) -> URLRequest
     func getBeer(_ beer: Beer) -> URLRequest
     func getRandomBeer() -> URLRequest
@@ -55,11 +58,9 @@ struct BaseNetwork : BaseNetworkProtocol {
         return request
     }
     
-    
     func getBeer(_ beer: Beer) -> URLRequest {
         let url : String = "\(API_URL)\(endpoints.beers)/\(beer.id)"
         
-        print(url,endpoints.beer)
         var request : URLRequest = URLRequest(url: URL(string: url)!)
         request.httpMethod = HTTPMethods.get
      
@@ -72,4 +73,19 @@ struct BaseNetwork : BaseNetworkProtocol {
         return URLRequest(url: URL(fileURLWithPath: ""))
     }
     
+    
+    func callApi(_ url: URLRequest) -> Publishers.ReceiveOn<Publishers.TryMap<Publishers.SubscribeOn<URLSession.DataTaskPublisher, DispatchQueue>, Data>, DispatchQueue> {
+        
+      return  URLSession.shared.dataTaskPublisher(for: url)
+            .subscribe(on: DispatchQueue.global(qos: .default))
+            .tryMap{
+                guard let response = $0.response as? HTTPURLResponse,
+                      response.statusCode == 200 else {
+                    
+                    throw URLError(.badServerResponse)
+                }
+                return $0.data
+            }
+            .receive(on: DispatchQueue.main)
+    }
 }
