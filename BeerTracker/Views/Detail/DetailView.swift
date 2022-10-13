@@ -9,12 +9,9 @@ import SwiftUI
 
 struct DetailView: View {
     
-    @StateObject var detailViewModel : DetailViewModel
+    var beer: Beer
+    @StateObject var detailViewModel : DetailViewModel = DetailViewModel()
 
-    init(beer: Beer) {
-        _detailViewModel = StateObject(wrappedValue: DetailViewModel(beer: beer))
-    }
-    
     var body: some View {
         ZStack {
             VStack {
@@ -69,7 +66,9 @@ struct DetailView: View {
                     }.fixedSize(horizontal: false, vertical: true).padding(.top)
                 }
             }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
-        }.background(Color.white)
+        }.background(Color.white).onAppear {
+            detailViewModel.beer = beer
+        }
     }
 }
 

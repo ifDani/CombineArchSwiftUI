@@ -7,21 +7,18 @@
 
 import Foundation
 import Combine
+
 final class DetailViewModel: ObservableObject {
     
     @Published var status: StatusNetwork = .none
     
-    @Published var beer: Beer
+    @Published var beer: Beer = DEF_BEER
     
     private let bRepository: BeerRepository = BeerRepository()
     
     var subscription = Set<AnyCancellable>()
     
-    init(beer: Beer) {
-        self.beer = beer
-        
-        getBeer()
-        
+    init() {
         addSubscribers()
     }
     
@@ -44,7 +41,9 @@ final class DetailViewModel: ObservableObject {
     
     func getBeer() {
         self.status = .sending
+        
         bRepository.getBeer(beer: beer)
+        
     }
     
 }
