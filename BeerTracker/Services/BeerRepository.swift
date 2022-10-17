@@ -16,23 +16,13 @@ class BeerRepository {
     
     var beersSubscription: AnyCancellable?
     
-    func getBeers(page: Int, food: String, queryItems: [URLQueryItem]) {
+    func getBeers(page: Int, food: String, queryItems: [URLQueryItem]) -> any Publisher<Beers, any Error> {
         
         let request: URLRequest = network.getBeers(page: page, food: food, queryItems: queryItems)
         
-        beersSubscription = network.callApi(request)
-            .decode(type: Beers.self, decoder: JSONDecoder())
-            .sink { completion in
-                switch completion{
-                case .failure(let error):
-                    print(error.localizedDescription)
-                case .finished:
-                    break
-                }
-            } receiveValue: { response in
-                self.beers = response
-                self.beersSubscription?.cancel()
-            }
+        let beerCall = network.callApi(request).decode(type: Beers.self, decoder: JSONDecoder()).eraseToAnyPublisher()
+        
+        return beerCall
         
     }
     

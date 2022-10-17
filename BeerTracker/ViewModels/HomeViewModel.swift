@@ -36,27 +36,27 @@ final class HomeViewModel: ObservableObject {
     }
     
     func addBeersSubscriber() {
-        repository.$beers
-            .sink { completion in
-                switch completion{
-                case .failure:
-                    self.status = .error
-                case .finished:
-                    break
-                }
-            } receiveValue: { beers in
-                self.status = .success
-                if !self.food.isEmpty {
-                    if self.isPaging {
-                        self.beers.append(contentsOf: beers)
-                    } else {
-                        self.beers = beers
-                    }
-                } else {
-                    self.beers.append(contentsOf: beers)
-                }
-            }
-            .store(in: &subscription)
+//        repository.$beers
+//            .sink { completion in
+//                switch completion{
+//                case .failure:
+//                    self.status = .error
+//                case .finished:
+//                    break
+//                }
+//            } receiveValue: { beers in
+//                self.status = .success
+//                if !self.food.isEmpty {
+//                    if self.isPaging {
+//                        self.beers.append(contentsOf: beers)
+//                    } else {
+//                        self.beers = beers
+//                    }
+//                } else {
+//                    self.beers.append(contentsOf: beers)
+//                }
+//            }
+//            .store(in: &subscription)
     }
     
     func addFoodObserver() {
@@ -104,6 +104,26 @@ final class HomeViewModel: ObservableObject {
         }
         
         repository.getBeers(page: currentPage, food: food, queryItems: self.queryItems)
+            .sink { completion in
+                switch completion{
+                case .failure:
+                    self.status = .error
+                case .finished:
+                    break
+                }
+            } receiveValue: { beers in
+                self.status = .success
+                if !self.food.isEmpty {
+                    if self.isPaging {
+                        self.beers.append(contentsOf: beers)
+                    } else {
+                        self.beers = beers
+                    }
+                } else {
+                    self.beers.append(contentsOf: beers)
+                }
+            }
+            .store(in: &subscription)
     }
     
     func resetPagesAndCall() {
