@@ -18,12 +18,17 @@ final class DetailViewModel: ObservableObject {
     
     var subscription = Set<AnyCancellable>()
     
-    init() {
-        addSubscribers()
+    init(beer: Beer) {
+        self.beer = beer
+        getBeer()
     }
     
-    func addSubscribers() {
-        bRepository.$beer
+
+    
+    func getBeer() {
+        self.status = .sending
+        
+        bRepository.getBeer(beer: beer)
             .sink { completion in
                 switch completion{
                 case .failure(let errorString):
@@ -34,16 +39,11 @@ final class DetailViewModel: ObservableObject {
                 }
             } receiveValue: { beer in
                 self.status = .success
-                guard let beer = beer else {return}
-                self.beer = beer
+                
+                if let first = beer.first {
+                    self.beer = first
+                }
             }.store(in: &subscription)
-    }
-    
-    func getBeer() {
-        self.status = .sending
-        
-        bRepository.getBeer(beer: beer)
-        
     }
     
 }
