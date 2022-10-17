@@ -10,9 +10,7 @@ import Combine
 
 class BeerRepository {
     
-    @Published var beer: Beer?
     private var network = BaseNetwork()
-    
     
     func getBeers(page: Int, food: String, queryItems: [URLQueryItem]) -> any Publisher<Beers, any Error> {
         
