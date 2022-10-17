@@ -56,16 +56,10 @@ struct HomeView: View {
                                         
                                     }
                                 } else {
-                                    VStack {
-                                        Image("broken_bottle").resizable().aspectRatio(contentMode: .fill).frame(maxHeight: 200)
-                                        Text("No hay datos...")
-                                    }.padding(.top)
+                                    noDataView
                                 }
                             case .error:
-                                VStack {
-                                    Image("broken_bottle").resizable().aspectRatio(contentMode: .fill).frame(maxHeight: 200)
-                                    Text("No hay datos...")
-                                }.padding(.top)
+                                noDataView
                             case .sending:
                                 ProgressView().padding(.top)
                             }
@@ -84,6 +78,14 @@ struct HomeView: View {
         }
     }
 }
+
+var noDataView: some View {
+    VStack {
+        Image("broken_bottle").resizable().aspectRatio(contentMode: .fill).frame(maxHeight: 200)
+        Text("No hay datos...")
+    }.padding(.top)
+}
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {

@@ -26,8 +26,12 @@ class BeerRepository {
         
         let request: URLRequest = network.getBeer(beer)
         
-        let beerCall = network.callApi(request).decode(type: Beers.self, decoder: JSONDecoder()).eraseToAnyPublisher()
-        
+        let beerCall = network.callApi(request).decode(type: Beers.self, decoder: JSONDecoder())
+        //            .catch({ (_) -> AnyPublisher<T, NetworkError> in
+        //                        return Empty<T, NetworkError>().eraseToAnyPublisher()
+        //                    })
+            .eraseToAnyPublisher()
+
         return beerCall
             
     }
